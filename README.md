@@ -22,3 +22,7 @@ You can also past things like "1920px" directly into the mixin instead of using 
 
 Dont forget to import the breakpoints in the scss file:
 `@import "../styles/breakpoints";`
+
+**Components**
+
+This project uses [Material UI Components](https://mui.com/base-ui/getting-started/). All of them are wrapped with an extra layer, so that the components can be swapped later, when another component library should be used.
