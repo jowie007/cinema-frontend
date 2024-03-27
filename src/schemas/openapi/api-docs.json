@@ -1,0 +1,258 @@
+{
+  "openapi": "3.0.1",
+  "info": { "title": "OpenAPI definition", "version": "v0" },
+  "servers": [{ "url": "/api/v1", "description": "Default Server URL" }],
+  "paths": {
+    "/films": {
+      "get": {
+        "tags": ["film-controller"],
+        "operationId": "findAll_1",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Film" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["film-controller"],
+        "operationId": "addFilm",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Film" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/Film" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/films/{filmId}/screenings": {
+      "get": {
+        "tags": ["film-controller"],
+        "operationId": "findAllScreeningsByFilmId",
+        "parameters": [
+          {
+            "name": "filmId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Screening"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["film-controller"],
+        "operationId": "addScreening",
+        "parameters": [
+          {
+            "name": "filmId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScreeningWithoutFilm"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/Screening" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/screenings": {
+      "get": {
+        "tags": ["screening-controller"],
+        "operationId": "findAll",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string", "format": "date" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FilmWithScreenings"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/films/{filmId}": {
+      "get": {
+        "tags": ["film-controller"],
+        "operationId": "findAllById",
+        "parameters": [
+          {
+            "name": "filmId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Film" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["film-controller"],
+        "operationId": "deleteFilmById",
+        "parameters": [
+          {
+            "name": "filmId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": { "type": "integer", "format": "int32" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/screenings/{screeningId}": {
+      "delete": {
+        "tags": ["screening-controller"],
+        "operationId": "deleteScreeningById",
+        "parameters": [
+          {
+            "name": "screeningId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": { "type": "integer", "format": "int32" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Film": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "name": { "type": "string" }
+        }
+      },
+      "ScreeningWithoutFilm": {
+        "type": "object",
+        "properties": {
+          "projectionType": { "type": "string" },
+          "resolution": { "type": "string" },
+          "date": { "type": "string", "format": "date-time" }
+        }
+      },
+      "Screening": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "film": { "$ref": "#/components/schemas/Film" },
+          "projectionType": { "type": "string" },
+          "resolution": { "type": "string" },
+          "date": { "type": "string", "format": "date-time" }
+        }
+      },
+      "FilmWithScreenings": {
+        "type": "object",
+        "properties": {
+          "film": { "$ref": "#/components/schemas/Film" },
+          "screenings": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ScreeningWithoutFilm" }
+          }
+        }
+      }
+    }
+  }
+}
