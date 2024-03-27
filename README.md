@@ -18,5 +18,7 @@ This app is a mobile first app. So every style is written for the mobile view. T
 }
 ```
 
+You can also past things like "1920px" directly into the mixin instead of using variables.
+
 Dont forget to import the breakpoints in the scss file:
 `@import "../styles/breakpoints";`
