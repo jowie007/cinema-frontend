@@ -5,6 +5,7 @@ import ReactDOM from "react-dom/client";
 import { initReactI18next } from "react-i18next";
 import App from "./App.tsx";
 import "./index.css";
+import "./styles/main.scss";
 import deTranslations from "./translations/de.json";
 
 i18n.use(initReactI18next).init({
