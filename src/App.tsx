@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import reactLogo from "./assets/react.svg";
 import { BasicButton } from "./components/basic/basic-button";
@@ -8,28 +8,55 @@ import { useScreeningControllerServiceFindAll } from "./openapi/queries";
 import viteLogo from "/vite.svg";
 import { ScreeningGrid } from "./components/specific/screening-grid";
 import { filmsWithScreeningsToScreeningsWithFilm } from "./utils/mappers";
+import { getRoomsFromScreenings } from "./utils/mappers/film-mapper";
 
 function App() {
   const [count, setCount] = useState(0);
 
-  const { data: screenings } = useScreeningControllerServiceFindAll({
+  const { data: filmWithScreenings } = useScreeningControllerServiceFindAll({
     // Today as YYYY-MM-DD
     date: new Date().toISOString().split("T")[0],
   });
 
   useEffect(() => {
-    console.log("screenings", screenings);
-  }, [screenings]);
+    console.log("screenings", filmWithScreenings);
+  }, [filmWithScreenings]);
+
+  const screeningsWithFilm = useMemo(
+    () =>
+      filmWithScreenings &&
+      filmsWithScreeningsToScreeningsWithFilm(filmWithScreenings),
+    [filmWithScreenings]
+  );
+
+  const rooms = useMemo(
+    () => screeningsWithFilm && getRoomsFromScreenings(screeningsWithFilm),
+    [screeningsWithFilm]
+  );
+
+  useEffect(() => {
+    console.log("rooms", rooms);
+  }, [rooms, screeningsWithFilm]);
 
   return (
     <PageLayout>
       <BasicButton title="Hello world" />
       <BasicInput title="Hello world" />
-      {screenings && screenings.length > 0 && (
-        <ScreeningGrid
-          screening={filmsWithScreeningsToScreeningsWithFilm(screenings)[0]}
-        />
-      )}
+      <div style={{ display: "flex" }}>
+        {screeningsWithFilm &&
+          screeningsWithFilm.length > 0 &&
+          rooms &&
+          rooms.map(
+            (room) =>
+              room !== undefined && (
+                <ScreeningGrid
+                  key={room}
+                  screenings={screeningsWithFilm}
+                  room={room}
+                />
+              )
+          )}
+      </div>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />

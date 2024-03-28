@@ -4,7 +4,6 @@ import { BasicGridProps } from "./basic-grid.types";
 
 export function BasicGrid({
   isContainer,
-  isItem,
   spacing,
   size,
   direction,
@@ -13,10 +12,10 @@ export function BasicGrid({
   return (
     <Grid
       container={isContainer}
-      item={isItem}
       direction={direction}
       spacing={spacing}
       xs={size}
+      width={120}
     >
       {children}
     </Grid>

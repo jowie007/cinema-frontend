@@ -6,4 +6,5 @@ export type ScreeningWithoutFilm = {
     projectionType?: string;
     resolution?: string;
     date?: string;
+    room?: number;
 };

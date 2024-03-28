@@ -44,9 +44,7 @@
           "200": {
             "description": "OK",
             "content": {
-              "*/*": {
-                "schema": { "$ref": "#/components/schemas/Film" }
-              }
+              "*/*": { "schema": { "$ref": "#/components/schemas/Film" } }
             }
           }
         }
@@ -71,9 +69,7 @@
               "*/*": {
                 "schema": {
                   "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Screening"
-                  }
+                  "items": { "$ref": "#/components/schemas/Screening" }
                 }
               }
             }
@@ -94,9 +90,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ScreeningWithoutFilm"
-              }
+              "schema": { "$ref": "#/components/schemas/ScreeningWithoutFilm" }
             }
           },
           "required": true
@@ -105,9 +99,7 @@
           "200": {
             "description": "OK",
             "content": {
-              "*/*": {
-                "schema": { "$ref": "#/components/schemas/Screening" }
-              }
+              "*/*": { "schema": { "$ref": "#/components/schemas/Screening" } }
             }
           }
         }
@@ -132,9 +124,7 @@
               "*/*": {
                 "schema": {
                   "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/FilmWithScreenings"
-                  }
+                  "items": { "$ref": "#/components/schemas/FilmWithScreenings" }
                 }
               }
             }
@@ -183,9 +173,7 @@
           "200": {
             "description": "OK",
             "content": {
-              "*/*": {
-                "schema": { "type": "integer", "format": "int32" }
-              }
+              "*/*": { "schema": { "type": "integer", "format": "int32" } }
             }
           }
         }
@@ -207,9 +195,7 @@
           "200": {
             "description": "OK",
             "content": {
-              "*/*": {
-                "schema": { "type": "integer", "format": "int32" }
-              }
+              "*/*": { "schema": { "type": "integer", "format": "int32" } }
             }
           }
         }
@@ -222,7 +208,9 @@
         "type": "object",
         "properties": {
           "id": { "type": "integer", "format": "int32" },
-          "name": { "type": "string" }
+          "name": { "type": "string" },
+          "length": { "type": "integer", "format": "int32" },
+          "ageRating": { "type": "integer", "format": "int32" }
         }
       },
       "ScreeningWithoutFilm": {
@@ -230,7 +218,8 @@
         "properties": {
           "projectionType": { "type": "string" },
           "resolution": { "type": "string" },
-          "date": { "type": "string", "format": "date-time" }
+          "date": { "type": "string", "format": "date-time" },
+          "room": { "type": "integer", "format": "int32" }
         }
       },
       "Screening": {
@@ -238,6 +227,7 @@
         "properties": {
           "id": { "type": "integer", "format": "int32" },
           "film": { "$ref": "#/components/schemas/Film" },
+          "room": { "type": "number" },
           "projectionType": { "type": "string" },
           "resolution": { "type": "string" },
           "date": { "type": "string", "format": "date-time" }

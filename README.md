@@ -4,7 +4,7 @@ This is a basic cinema frontend.
 
 ## Codegen
 
-Run the codegenerator in the backend and paste the content into `/src/schemas/openapi/api-docs.json`. The you can run `npm run codegen` and the hooks and classes will be created.
+Run the codegenerator in the backend (simply open this page `http://localhost:8080/api/v1/api-docs`) and paste the content into `/src/schemas/openapi/api-docs.json`. The you can run `npm run codegen` and the hooks and classes will be created.
 
 ## Styling
 

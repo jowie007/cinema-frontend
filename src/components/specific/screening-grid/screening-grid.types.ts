@@ -1,5 +1,6 @@
 import { Screening } from "../../../openapi/requests";
 
 export type ScreeningGridProps = {
-  screening: Screening;
+  screenings: Screening[];
+  room: number;
 };
