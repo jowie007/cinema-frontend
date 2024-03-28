@@ -6,6 +6,8 @@ import { BasicInput } from "./components/basic/basic-input";
 import { PageLayout } from "./components/layout/page-layout";
 import { useScreeningControllerServiceFindAll } from "./openapi/queries";
 import viteLogo from "/vite.svg";
+import { ScreeningGrid } from "./components/specific/screening-grid";
+import { filmsWithScreeningsToScreeningsWithFilm } from "./utils/mappers";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -23,6 +25,11 @@ function App() {
     <PageLayout>
       <BasicButton title="Hello world" />
       <BasicInput title="Hello world" />
+      {screenings && screenings.length > 0 && (
+        <ScreeningGrid
+          screening={filmsWithScreeningsToScreeningsWithFilm(screenings)[0]}
+        />
+      )}
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
