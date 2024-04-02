@@ -2,13 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Film } from './Film';
-
-export type Screening = {
+export type BasicScreening = {
     id?: number;
-    film?: Film;
-    room?: number;
     projectionType?: string;
     resolution?: string;
     date?: string;
+    roomId?: number;
+    filmId?: number;
 };

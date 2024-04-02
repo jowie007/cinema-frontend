@@ -18,7 +18,7 @@ const getHeigth = (length: number | undefined) => {
   return minutesToRem(length);
 };
 
-export function ScreeningGridItem({ screening }: ScreeningGridItemProps) {
+export function ScreeningGridItem({ screening, film }: ScreeningGridItemProps) {
   const { getFormattedTime } = useDate();
   return (
     <>
@@ -26,10 +26,10 @@ export function ScreeningGridItem({ screening }: ScreeningGridItemProps) {
         className="screeningGridItem"
         style={{
           top: getOffsetTop(screening.date),
-          height: getHeigth(screening.film?.length),
+          height: getHeigth(film.length),
         }}
       >
-        <div className="screeningGridItemName">{screening.film?.name}</div>
+        <div className="screeningGridItemName">{film.name}</div>
         <div className="screeningGridItemTime">
           {getFormattedTime(screening?.date)}
         </div>

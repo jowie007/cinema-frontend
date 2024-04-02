@@ -2,7 +2,8 @@ import { ScreeningGridProps } from ".";
 import { ScreeningGridItem } from "../screening-grid-item";
 import "./screening-grid.styles.scss";
 
-export function ScreeningGrid({ screenings, room }: ScreeningGridProps) {
+export function ScreeningGrid({ screenings, films }: ScreeningGridProps) {
+  // TODO Adjust for the new data format
   return (
     <div className="screeningGrid">
       <div className="screeningGridBackground" />
@@ -13,11 +14,13 @@ export function ScreeningGrid({ screenings, room }: ScreeningGridProps) {
           </div>
         ))}
       </div>
-      {screenings
-        .filter((screening) => screening.room === room)
-        .map((screening, index) => (
-          <ScreeningGridItem key={index} screening={screening} />
-        ))}
+      {screenings.map((screening, index) => (
+        <ScreeningGridItem
+          key={index}
+          screening={screening}
+          film={films.filter((film) => film.id === screening.filmId)[0]}
+        />
+      ))}
     </div>
   );
 }

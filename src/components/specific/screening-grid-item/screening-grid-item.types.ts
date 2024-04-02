@@ -1,5 +1,6 @@
-import { Screening } from "../../../openapi/requests";
+import { BasicScreening, Film } from "../../../openapi/requests";
 
 export type ScreeningGridItemProps = {
-  screening: Screening;
+  screening: BasicScreening;
+  film: Film;
 };

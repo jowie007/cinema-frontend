@@ -3,111 +3,9 @@
   "info": { "title": "OpenAPI definition", "version": "v0" },
   "servers": [{ "url": "/api/v1", "description": "Default Server URL" }],
   "paths": {
-    "/films": {
+    "/rooms": {
       "get": {
-        "tags": ["film-controller"],
-        "operationId": "findAll_1",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "query",
-            "required": false,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/Film" }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": ["film-controller"],
-        "operationId": "addFilm",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/Film" }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": { "schema": { "$ref": "#/components/schemas/Film" } }
-            }
-          }
-        }
-      }
-    },
-    "/films/{filmId}/screenings": {
-      "get": {
-        "tags": ["film-controller"],
-        "operationId": "findAllScreeningsByFilmId",
-        "parameters": [
-          {
-            "name": "filmId",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "integer", "format": "int32" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/Screening" }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": ["film-controller"],
-        "operationId": "addScreening",
-        "parameters": [
-          {
-            "name": "filmId",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "integer", "format": "int32" }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/ScreeningWithoutFilm" }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": { "schema": { "$ref": "#/components/schemas/Screening" } }
-            }
-          }
-        }
-      }
-    },
-    "/screenings": {
-      "get": {
-        "tags": ["screening-controller"],
+        "tags": ["room-controller"],
         "operationId": "findAll",
         "parameters": [
           {
@@ -123,79 +21,9 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/FilmWithScreenings" }
+                  "$ref": "#/components/schemas/RoomsWithFilmsAndScreenings"
                 }
               }
-            }
-          }
-        }
-      }
-    },
-    "/films/{filmId}": {
-      "get": {
-        "tags": ["film-controller"],
-        "operationId": "findAllById",
-        "parameters": [
-          {
-            "name": "filmId",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "integer", "format": "int32" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/Film" }
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": ["film-controller"],
-        "operationId": "deleteFilmById",
-        "parameters": [
-          {
-            "name": "filmId",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "integer", "format": "int32" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": { "schema": { "type": "integer", "format": "int32" } }
-            }
-          }
-        }
-      }
-    },
-    "/screenings/{screeningId}": {
-      "delete": {
-        "tags": ["screening-controller"],
-        "operationId": "deleteScreeningById",
-        "parameters": [
-          {
-            "name": "screeningId",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "integer", "format": "int32" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": { "schema": { "type": "integer", "format": "int32" } }
             }
           }
         }
@@ -204,6 +32,17 @@
   },
   "components": {
     "schemas": {
+      "BasicScreening": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "projectionType": { "type": "string" },
+          "resolution": { "type": "string" },
+          "date": { "type": "string", "format": "date-time" },
+          "roomId": { "type": "integer", "format": "int32" },
+          "filmId": { "type": "integer", "format": "int32" }
+        }
+      },
       "Film": {
         "type": "object",
         "properties": {
@@ -213,33 +52,33 @@
           "ageRating": { "type": "integer", "format": "int32" }
         }
       },
-      "ScreeningWithoutFilm": {
-        "type": "object",
-        "properties": {
-          "projectionType": { "type": "string" },
-          "resolution": { "type": "string" },
-          "date": { "type": "string", "format": "date-time" },
-          "room": { "type": "integer", "format": "int32" }
-        }
-      },
-      "Screening": {
+      "Room": {
         "type": "object",
         "properties": {
           "id": { "type": "integer", "format": "int32" },
-          "film": { "$ref": "#/components/schemas/Film" },
-          "room": { "type": "number" },
-          "projectionType": { "type": "string" },
-          "resolution": { "type": "string" },
-          "date": { "type": "string", "format": "date-time" }
+          "name": { "type": "string" }
         }
       },
-      "FilmWithScreenings": {
+      "RoomWithBasicScreenings": {
         "type": "object",
         "properties": {
-          "film": { "$ref": "#/components/schemas/Film" },
-          "screenings": {
+          "room": { "$ref": "#/components/schemas/Room" },
+          "basicScreenings": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/ScreeningWithoutFilm" }
+            "items": { "$ref": "#/components/schemas/BasicScreening" }
+          }
+        }
+      },
+      "RoomsWithFilmsAndScreenings": {
+        "type": "object",
+        "properties": {
+          "roomsWithScreenings": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/RoomWithBasicScreenings" }
+          },
+          "films": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Film" }
           }
         }
       }

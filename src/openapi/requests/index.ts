@@ -6,10 +6,10 @@ export { CancelablePromise, CancelError } from './core/CancelablePromise';
 export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
+export type { BasicScreening } from './models/BasicScreening';
 export type { Film } from './models/Film';
-export type { FilmWithScreenings } from './models/FilmWithScreenings';
-export type { Screening } from './models/Screening';
-export type { ScreeningWithoutFilm } from './models/ScreeningWithoutFilm';
+export type { Room } from './models/Room';
+export type { RoomsWithFilmsAndScreenings } from './models/RoomsWithFilmsAndScreenings';
+export type { RoomWithBasicScreenings } from './models/RoomWithBasicScreenings';
 
-export { FilmControllerService } from './services/FilmControllerService';
-export { ScreeningControllerService } from './services/ScreeningControllerService';
+export { RoomControllerService } from './services/RoomControllerService';
