@@ -3,10 +3,11 @@ import i18n from "i18next";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { initReactI18next } from "react-i18next";
-import App from "./App.tsx";
-import "./index.css";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./router/router.tsx";
 import "./styles/main.scss";
 import deTranslations from "./translations/de.json";
+import { ThemeProvider } from "./components/layout/theme-provider";
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -26,7 +27,9 @@ const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <App />
+      <ThemeProvider>
+        <RouterProvider router={router} />
+      </ThemeProvider>
     </QueryClientProvider>
   </React.StrictMode>
 );

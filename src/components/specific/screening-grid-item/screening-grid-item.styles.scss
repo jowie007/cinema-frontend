@@ -1,0 +1,8 @@
+.screeningGridItem {
+  position: absolute;
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  border-radius: 4px;
+  margin-left: 2.4rem;
+  width: calc(20rem - 2.4rem);
+}

@@ -1,13 +1,20 @@
 import CssBaseline from "@mui/material/CssBaseline";
-import { ThemeProvider as MUIThemeProvider } from "@mui/material/styles";
+import {
+  Experimental_CssVarsProvider as CssVarsProvider,
+  experimental_extendTheme as extendTheme,
+} from "@mui/material/styles";
 import { ThemeProviderProps } from ".";
 
 // https://mui.com/material-ui/customization/dark-mode/
-export function ThemeProvider({ children, theme }: ThemeProviderProps) {
+export function ThemeProvider({ children }: ThemeProviderProps) {
+  const theme = extendTheme({
+    cssVarPrefix: "cinema",
+  });
+
   return (
-    <MUIThemeProvider theme={theme}>
+    <CssVarsProvider theme={theme}>
       <CssBaseline />
       {children}
-    </MUIThemeProvider>
+    </CssVarsProvider>
   );
 }

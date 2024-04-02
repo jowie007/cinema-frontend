@@ -1,4 +1,4 @@
-import { PaletteMode, createTheme, useMediaQuery } from "@mui/material";
+import { PaletteMode, useMediaQuery } from "@mui/material";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 export const useTheme = () => {
@@ -8,19 +8,15 @@ export const useTheme = () => {
     storedTheme ?? (prefersDarkMode ? "dark" : "light")
   );
 
+  const addBodyClass = useCallback((isDark: boolean) => {
+    document.body.classList.add(isDark ? "dark" : "light");
+    document.body.classList.remove(isDark ? "light" : "dark");
+  }, []);
+
   useEffect(() => {
     localStorage.setItem("theme", activeTheme);
-  }, [activeTheme]);
-
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode: activeTheme,
-        },
-      }),
-    [activeTheme]
-  );
+    addBodyClass(activeTheme === "dark");
+  }, [activeTheme, addBodyClass]);
 
   const isDarkTheme = useMemo(() => activeTheme === "dark", [activeTheme]);
 
@@ -28,5 +24,5 @@ export const useTheme = () => {
     setActiveTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
   }, []);
 
-  return { theme, isDarkTheme, toggleTheme };
+  return { isDarkTheme, toggleTheme };
 };

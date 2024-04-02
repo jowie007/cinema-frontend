@@ -22,6 +22,5 @@ export const filmsWithScreeningsToScreeningsWithFilm = (
 };
 
 export const getRoomsFromScreenings = (screenings: Screening[]) => {
-  console.log("getRoomsFromScreenings", screenings);
   return Array.from(new Set(screenings.map((screening) => screening.room)));
 };
