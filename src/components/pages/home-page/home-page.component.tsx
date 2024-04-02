@@ -1,18 +1,21 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useScreeningControllerServiceFindAll } from "../../../openapi/queries";
 import {
   filmsWithScreeningsToScreeningsWithFilm,
   getRoomsFromScreenings,
 } from "../../../utils/mappers";
-import { BasicButton } from "../../basic/basic-button";
-import { BasicInput } from "../../basic/basic-input";
 import { PageLayout } from "../../layout/page-layout";
 import { ScreeningGrid } from "../../specific/screening-grid";
+import "./home-page.styles.scss";
+import { BasicDatePicker } from "../../basic/basic-date-picker";
+import { useDate } from "../../../hooks/use-date";
 
 export function HomePage() {
+  const [activeDate, setActiveDate] = useState(new Date());
+  const { getDateWithoutTime } = useDate();
+
   const { data: filmWithScreenings } = useScreeningControllerServiceFindAll({
-    // Today as YYYY-MM-DD
-    date: new Date().toISOString().split("T")[0],
+    date: getDateWithoutTime(activeDate) ?? undefined,
   });
 
   const screeningsWithFilm = useMemo(
@@ -29,22 +32,25 @@ export function HomePage() {
 
   return (
     <PageLayout>
-      <BasicButton title="Hello world" />
-      <BasicInput title="Hello world" />
-      <div style={{ display: "flex" }}>
-        {screeningsWithFilm &&
-          screeningsWithFilm.length > 0 &&
-          rooms &&
-          rooms.map(
-            (room, index) =>
-              room !== undefined && (
-                <ScreeningGrid
-                  key={index}
-                  screenings={screeningsWithFilm}
-                  room={room}
-                />
-              )
-          )}
+      <div className="homePage">
+        <BasicDatePicker onChange={(value) => setActiveDate(value)} />
+        <div className="homePageRooms">
+          {screeningsWithFilm &&
+            screeningsWithFilm.length > 0 &&
+            rooms &&
+            rooms.map(
+              (room, index) =>
+                room !== undefined && (
+                  <div className="homePageRoomsItem" key={index}>
+                    <ScreeningGrid
+                      key={index}
+                      screenings={screeningsWithFilm}
+                      room={room}
+                    />
+                  </div>
+                )
+            )}
+        </div>
       </div>
     </PageLayout>
   );

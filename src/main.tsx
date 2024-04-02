@@ -8,6 +8,8 @@ import { router } from "./router/router.tsx";
 import "./styles/main.scss";
 import deTranslations from "./translations/de.json";
 import { ThemeProvider } from "./components/layout/theme-provider";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -28,7 +30,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <RouterProvider router={router} />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <RouterProvider router={router} />
+        </LocalizationProvider>
       </ThemeProvider>
     </QueryClientProvider>
   </React.StrictMode>

@@ -1,0 +1,12 @@
+.homePage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacingL);
+
+  &Rooms {
+    display: flex;
+    gap: var(--spacingL);
+  }
+}

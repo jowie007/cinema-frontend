@@ -1,4 +1,5 @@
 import { ScreeningGridItemProps } from ".";
+import { useDate } from "../../../hooks/use-date";
 import "./screening-grid-item.styles.scss";
 
 const minutesToRem = (minutes: number) => `${(minutes * 2.5) / 60}rem`;
@@ -18,6 +19,7 @@ const getHeigth = (length: number | undefined) => {
 };
 
 export function ScreeningGridItem({ screening }: ScreeningGridItemProps) {
+  const { getFormattedTime } = useDate();
   return (
     <>
       <div
@@ -27,9 +29,10 @@ export function ScreeningGridItem({ screening }: ScreeningGridItemProps) {
           height: getHeigth(screening.film?.length),
         }}
       >
-        <div>{screening.film?.name}</div>
-        <div>{screening.film?.length}</div>
-        <div>{screening?.date}</div>
+        <div className="screeningGridItemName">{screening.film?.name}</div>
+        <div className="screeningGridItemTime">
+          {getFormattedTime(screening?.date)}
+        </div>
       </div>
     </>
   );

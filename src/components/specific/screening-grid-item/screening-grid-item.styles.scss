@@ -3,6 +3,19 @@
   background-color: var(--color-primary);
   color: var(--color-on-primary);
   border-radius: 4px;
-  margin-left: 2.4rem;
-  width: calc(20rem - 2.4rem);
+  margin-left: var(--spacingL);
+  margin-right: var(--spacingL);
+  width: calc(20rem - var(--spacingL));
+  padding: var(--spacingS);
+
+  &Name {
+    text-align: center;
+  }
+
+  &Time {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: var(--spacingS);
+  }
 }

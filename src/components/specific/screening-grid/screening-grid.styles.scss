@@ -4,7 +4,11 @@
   height: 60rem;
 
   &Background {
-    background: linear-gradient(to bottom, #000 1px, transparent 1px);
+    background: linear-gradient(
+      to bottom,
+      var(--color-on-background) 1px,
+      transparent 1px
+    );
     background-size: 100% 2.5rem;
     top: 0;
     left: 0;
@@ -25,13 +29,5 @@
     &Item {
       height: 2.5rem;
     }
-  }
-
-  &Film {
-    position: absolute;
-    background-color: red;
-    border-radius: 4px;
-    margin-left: 2.4rem;
-    width: calc(20rem - 2.4rem);
   }
 }

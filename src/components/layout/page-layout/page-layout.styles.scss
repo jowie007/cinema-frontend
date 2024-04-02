@@ -1,2 +1,20 @@
 .pageLayout {
+  width: 100%;
+
+  &ThemeToggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: var(--spacingM);
+  }
+
+  &Content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
 }
+
+

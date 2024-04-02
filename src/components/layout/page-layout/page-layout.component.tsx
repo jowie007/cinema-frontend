@@ -4,6 +4,7 @@ import { useTheme } from "../../../hooks/use-theme";
 import { BasicThemeTogle } from "../../basic/basic-theme-toggle";
 import "./page-layout.styles.scss";
 import { useEffect } from "react";
+import { Header } from "../../specific/header/header.component";
 
 export function PageLayout({ children }: PageLayoutProps) {
   const { isDarkTheme, toggleTheme } = useTheme();
@@ -15,8 +16,11 @@ export function PageLayout({ children }: PageLayoutProps) {
 
   return (
     <div className="pageLayout">
-      <BasicThemeTogle checked={isDarkTheme} onChange={toggleTheme} />
-      {children}
+      <Header />
+      <div className="pageLayoutThemeToggle">
+        <BasicThemeTogle checked={isDarkTheme} onChange={toggleTheme} />
+      </div>
+      <div className="pageLayoutContent">{children}</div>
     </div>
   );
 }

@@ -1,2 +1,7 @@
 @import "./breakpoints";
 @import "./theme";
+@import "./typography";
+
+body {
+  background-color: var(--color-background) !important;
+}
