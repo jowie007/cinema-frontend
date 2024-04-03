@@ -12,4 +12,6 @@ export type { Room } from './models/Room';
 export type { RoomsWithFilmsAndScreenings } from './models/RoomsWithFilmsAndScreenings';
 export type { RoomWithBasicScreenings } from './models/RoomWithBasicScreenings';
 
+export { FilmControllerService } from './services/FilmControllerService';
+export { PosterControllerService } from './services/PosterControllerService';
 export { RoomControllerService } from './services/RoomControllerService';

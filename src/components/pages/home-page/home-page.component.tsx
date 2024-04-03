@@ -3,45 +3,37 @@ import { useDate } from "../../../hooks/use-date";
 import { useRoomControllerServiceFindAll } from "../../../openapi/queries";
 import { BasicDatePicker } from "../../basic/basic-date-picker";
 import { PageLayout } from "../../layout/page-layout";
-import { ScreeningGrid } from "../../specific/screening-grid";
+import { FilmCarousel } from "../../specific/film-carousel";
+import { ScreeningCarousel } from "../../specific/screening-carousel/screening-carousel.component";
 import "./home-page.styles.scss";
-import { BasicCarousel } from "../../basic/basic-carousel";
+import { BasicSpinner } from "../../basic/basic-spinner";
 
 export function HomePage() {
   const [activeDate, setActiveDate] = useState(new Date());
-  const { getDateWithoutTime } = useDate();
+  const { getDateWithoutTime, getDateWithWeekday } = useDate();
 
-  const { data: roomsWithFilmsAndScreenings } = useRoomControllerServiceFindAll(
-    {
+  const { data: roomsWithFilmsAndScreenings, isFetching } =
+    useRoomControllerServiceFindAll({
       date: getDateWithoutTime(activeDate) ?? undefined,
-    }
-  );
+    });
 
   // TODO Error handling
   return (
     <PageLayout>
       <div className="homePage">
+        <FilmCarousel />
+        <div className="homePageDay">{getDateWithWeekday(activeDate)}</div>
         <BasicDatePicker onChange={(value) => setActiveDate(value)} />
         <div className="homePageRooms">
-          <BasicCarousel>
-            {roomsWithFilmsAndScreenings &&
-              roomsWithFilmsAndScreenings.roomsWithScreenings &&
-              roomsWithFilmsAndScreenings.roomsWithScreenings?.map(
-                (roomWithScreenings, index) =>
-                  roomsWithFilmsAndScreenings.films !== undefined &&
-                  roomWithScreenings.room !== undefined &&
-                  roomWithScreenings.basicScreenings !== undefined && (
-                    <div className="homePageRoomsItem" key={index}>
-                      <ScreeningGrid
-                        key={index}
-                        room={roomWithScreenings.room}
-                        screenings={roomWithScreenings.basicScreenings}
-                        films={roomsWithFilmsAndScreenings.films}
-                      />
-                    </div>
-                  )
-              )}
-          </BasicCarousel>
+          {isFetching ? (
+            <div className="homePageRoomsSpinner">
+              <BasicSpinner />
+            </div>
+          ) : (
+            <ScreeningCarousel
+              roomsWithFilmsAndScreenings={roomsWithFilmsAndScreenings}
+            />
+          )}
         </div>
       </div>
     </PageLayout>

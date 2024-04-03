@@ -11,13 +11,23 @@
   &Rooms {
     display: grid;
     width: 100%;
+
+    &Spinner {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &Day {
+    z-index: 1;
+    font-weight: bold;
   }
 }
 
 @include responsive("tablet") {
   .homePage {
-    &Rooms {
-      width: 80%;
-    }
+    width: 80%;
   }
 }

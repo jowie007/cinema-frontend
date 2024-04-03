@@ -28,6 +28,60 @@
           }
         }
       }
+    },
+    "/poster/{id}": {
+      "get": {
+        "tags": ["poster-controller"],
+        "operationId": "findPosterById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "image/jpeg": {
+                "schema": {
+                  "type": "array",
+                  "items": { "type": "string", "format": "byte" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/films": {
+      "get": {
+        "tags": ["film-controller"],
+        "operationId": "findAll_1",
+        "parameters": [
+          {
+            "name": "isOnlyFutureFilms",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "boolean" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Film" }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {

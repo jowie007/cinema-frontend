@@ -1,0 +1,14 @@
+@import "../../../styles/breakpoints";
+
+.filmCarousel {
+  display: grid;
+  width: 80%;
+}
+
+@include responsive("mobileLandscape") {
+  .filmCarousel {
+    .filmPoster {
+      width: 14rem;
+    }
+  }
+}

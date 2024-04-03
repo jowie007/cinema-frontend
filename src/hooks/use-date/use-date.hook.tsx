@@ -9,5 +9,24 @@ export const useDate = () => {
     return new Date(date).toISOString().split("T")[0];
   };
 
-  return { getFormattedTime, getDateWithoutTime };
+  const getDateWithWeekday = (date: Date) => {
+    // TODO Outsource locale
+    const day = date.toLocaleDateString("de-DE", { weekday: "long" });
+    const formattedDate = date.toLocaleDateString("de-DE", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+    if (date.toDateString() === new Date().toDateString()) {
+      return `Today, ${formattedDate}`;
+    }
+    const tomorrow = new Date();
+    tomorrow.setDate(new Date().getDate() + 1);
+    if (date.toDateString() === tomorrow.toDateString()) {
+      return `Tomorrow, ${formattedDate}`;
+    }
+    return `${day}, ${formattedDate}`;
+  };
+
+  return { getFormattedTime, getDateWithoutTime, getDateWithWeekday };
 };
