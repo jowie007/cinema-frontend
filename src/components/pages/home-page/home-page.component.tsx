@@ -5,6 +5,7 @@ import { BasicDatePicker } from "../../basic/basic-date-picker";
 import { PageLayout } from "../../layout/page-layout";
 import { ScreeningGrid } from "../../specific/screening-grid";
 import "./home-page.styles.scss";
+import { BasicCarousel } from "../../basic/basic-carousel";
 
 export function HomePage() {
   const [activeDate, setActiveDate] = useState(new Date());
@@ -22,22 +23,25 @@ export function HomePage() {
       <div className="homePage">
         <BasicDatePicker onChange={(value) => setActiveDate(value)} />
         <div className="homePageRooms">
-          {roomsWithFilmsAndScreenings &&
-            roomsWithFilmsAndScreenings.roomsWithScreenings &&
-            roomsWithFilmsAndScreenings.roomsWithScreenings?.map(
-              (roomWithScreenings, index) =>
-                roomsWithFilmsAndScreenings.films !== undefined &&
-                roomWithScreenings.room !== undefined &&
-                roomWithScreenings.basicScreenings !== undefined && (
-                  <div className="homePageRoomsItem" key={index}>
-                    <ScreeningGrid
-                      key={index}
-                      screenings={roomWithScreenings.basicScreenings}
-                      films={roomsWithFilmsAndScreenings.films}
-                    />
-                  </div>
-                )
-            )}
+          <BasicCarousel>
+            {roomsWithFilmsAndScreenings &&
+              roomsWithFilmsAndScreenings.roomsWithScreenings &&
+              roomsWithFilmsAndScreenings.roomsWithScreenings?.map(
+                (roomWithScreenings, index) =>
+                  roomsWithFilmsAndScreenings.films !== undefined &&
+                  roomWithScreenings.room !== undefined &&
+                  roomWithScreenings.basicScreenings !== undefined && (
+                    <div className="homePageRoomsItem" key={index}>
+                      <ScreeningGrid
+                        key={index}
+                        room={roomWithScreenings.room}
+                        screenings={roomWithScreenings.basicScreenings}
+                        films={roomsWithFilmsAndScreenings.films}
+                      />
+                    </div>
+                  )
+              )}
+          </BasicCarousel>
         </div>
       </div>
     </PageLayout>

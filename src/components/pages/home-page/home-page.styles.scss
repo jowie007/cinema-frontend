@@ -1,12 +1,23 @@
+@import "../../../styles/breakpoints";
+
 .homePage {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: var(--spacingL);
+  width: 100%;
 
   &Rooms {
-    display: flex;
-    gap: var(--spacingL);
+    display: grid;
+    width: 100%;
+  }
+}
+
+@include responsive("tablet") {
+  .homePage {
+    &Rooms {
+      width: 80%;
+    }
   }
 }

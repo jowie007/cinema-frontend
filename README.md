@@ -13,7 +13,7 @@ Run the codegenerator in the backend (simply open this page `http://localhost:80
 This app is a mobile first app. So every style is written for the mobile view. To adjust something for the other views you can use:
 
 ```scss
-@include responsive("medium") {
+@include responsive("desktop") {
   // Your styles
 }
 ```
