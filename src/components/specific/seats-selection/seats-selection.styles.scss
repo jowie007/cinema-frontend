@@ -1,0 +1,53 @@
+.seatsSelection {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  padding: var(--spacingM);
+  gap: var(--spacingM);
+  position: relative;
+  z-index: 1;
+
+  &Row {
+    display: flex;
+    flex-direction: row;
+
+    .seat {
+      width: 16px;
+      height: 32px;
+      text-align: center;
+
+      &Type {
+        &Empty {
+          background-color: transparent;
+        }
+        &Screen {
+          background-color: blue;
+        }
+        &Exit {
+          background-color: green;
+        }
+        &Love {
+          background-color: yellow;
+        }
+        &Seat {
+          border: none;
+          background-color: yellow;
+          color: black;
+          width: 32px;
+          cursor: pointer;
+          &:hover {
+            background-color: orange;
+          }
+          &Selected {
+            background-color: orange;
+          }
+        }
+        &Row {
+          background-color: purple;
+          color: white;
+          width: 32px;
+        }
+      }
+    }
+  }
+}
